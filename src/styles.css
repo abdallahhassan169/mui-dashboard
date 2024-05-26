@@ -1,0 +1,15 @@
+.k-column-title {
+  height: auto;
+  white-space: normal;
+  
+}
+
+
+  @media screen and (max-width: 30em) {
+    .k-table-td,.k-table-th, .typeId, .newButton {
+      width: 100px;
+    }
+   
+  }
+
+

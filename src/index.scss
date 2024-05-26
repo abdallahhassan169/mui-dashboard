@@ -1,0 +1,83 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+
+body {
+  margin: 0;
+  font-family: "Almarai", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+barcode {
+  font-family: "Libre Barcode 39" !important;
+}
+code {
+  font-family: "Almarai, source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace";
+}
+
+p {
+  font-family: "Almarai", sans-serif !important;
+}
+span {
+  font-family: "Almarai", sans-serif !important;
+}
+
+button {
+  font-family: "Almarai", sans-serif !important;
+}
+.icons{
+  font-family:"Material Icons" !important;
+}
+div {
+  font-family: "Almarai", sans-serif !important;
+}
+.card-desc {
+  max-height: 50%;
+  overflow-y: scroll;
+  scrollbar-color: rgb(101 127 145) rgb(255, 255, 255);
+  scrollbar-width: thin;
+}
+.card-desc::-webkit-scrollbar {
+  width: 5px;
+}
+
+.card-desc::-webkit-scrollbar-thumb {
+  background-color: rgb(101 127 145);
+  border-radius: 6px;
+  border: 3px solid rgb(101 127 145);
+}
+.k-window {
+  position: fixed !important ;
+}
+#trv-main-menu-export-format-list li:not(:first-child) {
+  display: none;
+}
+.waterMark {
+  position: absolute;
+  z-index: 0;
+  background: black;
+  display: block;
+  min-height: 50%;
+  min-width: 50%;
+  color: red;
+}
+.StackHoldersItemEdite {
+  display: none !important;
+  z-index: 100000;
+}
+.StackHoldersItem:hover .StackHoldersItemEdite {
+  display: flex !important;
+}
+.k-tabstrip > .k-content {
+  border: 0px !important;
+}
+.k-animation-container {
+  z-index: 100003;
+}
+.k-dialog-wrapper {
+  z-index: 10003;
+}

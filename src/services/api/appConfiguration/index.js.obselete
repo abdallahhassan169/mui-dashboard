@@ -1,0 +1,5 @@
+import * as api from "../_Common/index.js";
+
+export const add_page = async (serviceUrl, params) => {
+  return await api.post(false, serviceUrl, params);
+};

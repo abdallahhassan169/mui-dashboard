@@ -1,0 +1,21 @@
+import * as utils from "../../utils.js";
+export const page_types = async (
+  encrypt,
+  serviceUrl,
+  serviceFilter,
+  offset,
+  take
+) => {
+  return await utils.get_lookup(
+    encrypt,
+    serviceUrl,
+    serviceFilter,
+    offset,
+    take
+  );
+};
+
+export const page_scopes = async (LoginInfo) => {
+  try {
+  } catch (error) {}
+};
