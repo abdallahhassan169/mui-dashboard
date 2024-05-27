@@ -58,7 +58,7 @@ const ProductForm = ({ open, onClose, initialValue }) => {
 
   const handleSave = async () => {
     if (formData.name && formData.egp_price) {
-      const data = await utils.default_post("upsert_product", formData);
+      const data = await utils.default_post("upsert_product", formData, true);
       if (data.success) {
         noti.success(prodAdded);
         onClose();
