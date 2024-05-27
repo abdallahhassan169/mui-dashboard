@@ -6,7 +6,9 @@ function ImagesCarousel({ items, imageKey }) {
   function Item(props) {
     console.log(props, "oi3engoihwio");
     return (
-      <Paper style={{ height: "100%" }}>
+      <Paper
+        style={{ height: "100%", display: "flex", justifyContent: "center" }}
+      >
         {props.item && (
           <img
             src={`${config.backend.url}image?img=${props?.item[imageKey]}`}
