@@ -1,5 +1,5 @@
 export const config = {
-  backend: { url: "http://127.0.0.1:3001/" },
+  backend: { url: "https://winit-node.onrender.com/" },
 };
 //"https://winit-node.onrender.com/"
 //"http://127.0.0.1:3001/"
