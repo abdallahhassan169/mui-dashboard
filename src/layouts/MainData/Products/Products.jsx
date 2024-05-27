@@ -30,7 +30,7 @@ function Products() {
 
   const startEdite = (e) => {
     console.log(e, "se");
-    setCurrentItem(e.row);
+    setCurrentItem(e);
     setMethod("crud");
     setAddFormOpen(true);
   };

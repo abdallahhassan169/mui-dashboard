@@ -11,6 +11,8 @@ import MDButton from "components/MDButton";
 import DASHActionRow from "../../../components/DASHActionRow";
 import Datatable from "../../../components/common/DataTable";
 import NewUserForm from "./NewUserForm";
+import { AddTask, ResetTv } from "@mui/icons-material";
+import DeleteForever from "@mui/icons-material/DeleteForever";
 
 function Users() {
   const noti = useNotification();
@@ -50,7 +52,56 @@ function Users() {
   const handleCloseForm = () => {
     setAddFormOpen(false);
   };
-
+  const startDelete = (row) => {
+    noti.DASHAlert(
+      async () => {
+        const data = await utils.default_post("toggle_admin_status", {
+          id: row.id,
+        });
+        if (data.success) {
+          gridRef.current.refresh();
+          noti.success(" تم تعطيل المستخدم");
+        } else {
+          noti.error("خطأ في تعطيل/تفعيل المستخدم ");
+        }
+      },
+      () => {},
+      null,
+      {
+        icon: "warning",
+        title: `${"هل انت متاكد من تعطيل / تفعيل المستخدم"} (${row?.name})`,
+        //html: cantReturn,
+      }
+    );
+  };
+  const resetPassword = (row) => {
+    console.log(row);
+    noti.DASHAlert(
+      async () => {
+        const data = await utils.default_post("resetPassword", {
+          id: row.id,
+        });
+        if (data.success) {
+          gridRef.current.refresh();
+          noti.DASHAlert(null, null, null, {
+            icon: "warning",
+            title: `"كلمة المرور الجديدة هي ${data.data.new_password}"  (${row?.name})`,
+            //html: cantReturn,
+          });
+          noti.success(" تم تغيير كلمة مرور المستخدم");
+        } else {
+          noti.error("خطأ في تغيير كلمة المرور   ");
+        }
+      },
+      null,
+      null,
+      {
+        icon: "warning",
+        title: `${"هل انت متاكد من تغيير كلمة المرور للمستخدم"} (${row?.name})`,
+        //html: cantReturn,
+      }
+    );
+  };
   const usersColmuns = [
     { field: "id", headerName: "id", width: 70 },
 
@@ -73,20 +124,43 @@ function Users() {
   ];
 
   const actionColumn = [
-    // {
-    //   field: "edit",
-    //   headerName: `${T("edit")}`,
-    //   width: 100,
-    //   filterable: false,
-    //   sortable: false,
-    //   renderCell: (params) => (
-    //     <div className="cellAction">
-    //       <div className="editeButton" onClick={startEdite}>
-    //         {T("edit")}
-    //       </div>
-    //     </div>
-    //   ),
-    // },
+    {
+      field: "action",
+      headerName: `${T("action")}`,
+      width: 200,
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <>
+          <MDBox mr={1} key={"delete"}>
+            {params.row.is_active ? (
+              <DeleteForever
+                fontSize="medium"
+                onClick={() => startDelete(params.row)}
+                mx={10}
+                color="error"
+              ></DeleteForever>
+            ) : (
+              <AddTask
+                fontSize="medium"
+                onClick={() => startDelete(params.row)}
+                mx={10}
+                color="success"
+              ></AddTask>
+            )}
+          </MDBox>
+
+          <MDBox mr={1} key={"active"}>
+            <ResetTv
+              fontSize="medium"
+              onClick={() => resetPassword(params.row)}
+              mx={10}
+              color="error"
+            ></ResetTv>
+          </MDBox>
+        </>
+      ),
+    },
   ];
 
   return (
@@ -119,6 +193,7 @@ function Users() {
                   actionColumns={actionColumn}
                   pageSize={10}
                   checkBox={true}
+                  ref={gridRef}
                 />
               </DASHGridServiceContainer>
             </Grid>

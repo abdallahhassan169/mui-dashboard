@@ -4,11 +4,9 @@ import "./notification.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { 
-  NotificationManager,
-} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 const MySwal = withReactContent(Swal);
-const useNotification = () => { 
+const useNotification = () => {
   return {
     info: (message, title, timeOut, callback, priority) => {
       NotificationManager.info(message, title, timeOut, callback, priority);
@@ -22,11 +20,9 @@ const useNotification = () => {
     error: (message, title, timeOut, callback, priority) => {
       // //console.log("useNotification",message)
       try {
-        
-      NotificationManager.error(message, title, timeOut, callback, priority);
+        NotificationManager.error(message, title, timeOut, callback, priority);
       } catch (error) {
-        
-      // //console.log("useNotification error",error)
+        // //console.log("useNotification error",error)
       }
     },
     /*
@@ -53,17 +49,19 @@ const useNotification = () => {
     }  
    */
     DASHAlert: (onOk, onCancel, onDeny, { ...props }) => {
-      return MySwal.fire({ allowOutsideClick: false, ...props }).then(
-        (result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed && onOk) onOk();
-          else if (result.isDenied && onDeny) onDeny();
-          else if (result.isDismissed && onCancel) onCancel();
-        }
-      );
+      return MySwal.fire({
+        allowOutsideClick: false,
+        ...props,
+        showCancelButton: true,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed && onOk) onOk();
+        else if (result.isDenied && onDeny) onDeny();
+        else if (result.isDismissed && onCancel) onCancel();
+      });
     },
     DASHInput: async ({ ...props }) => {
-      const { isConfirmed,  value } = await MySwal.fire({
+      const { isConfirmed, value } = await MySwal.fire({
         allowOutsideClick: false,
         closeOnConfirm: false,
 

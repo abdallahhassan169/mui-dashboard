@@ -106,6 +106,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 fullWidth
+                InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
             </Grid>
@@ -113,8 +114,8 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
               <TextField
                 id="start_date"
                 type="date"
-                label={T("start_date")}
                 InputLabelProps={{ shrink: true }}
+                label={T("start_date")}
                 value={formData.start_date?.substring(0, 10)}
                 onChange={(e) => handleChange("start_date", e.target.value)}
                 fullWidth
@@ -141,6 +142,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 id="prize_name"
                 type="text"
                 label={T("prize_name")}
+                InputLabelProps={{ shrink: true }}
                 value={formData.prize_name}
                 onChange={(e) => handleChange("prize_name", e.target.value)}
                 fullWidth
@@ -157,6 +159,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 value={formData.prize_url}
                 onChange={(e) => handleChange("prize_url", e.target.value)}
                 fullWidth
+                InputLabelProps={{ shrink: true }}
                 //dir="ltr"
                 //style={{ direction: "ltr" }}
                 margin="normal"
@@ -168,6 +171,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 type="number"
                 label={T("remaining_qty")}
                 value={formData.remaining_qty}
+                InputLabelProps={{ shrink: true }}
                 onChange={(e) => handleChange("remaining_qty", e.target.value)}
                 fullWidth
                 //dir="ltr"
@@ -184,6 +188,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 onChange={(e) => handleChange("target", e.target.value)}
                 fullWidth
                 //dir="ltr"
+                InputLabelProps={{ shrink: true }}
                 //style={{ direction: "ltr" }}
                 margin="normal"
               />
@@ -194,6 +199,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 type="textarea"
                 label={T("note")}
                 value={formData.note}
+                InputLabelProps={{ shrink: true }}
                 onChange={(e) => handleChange("note", e.target.value)}
                 fullWidth
                 margin="normal"
@@ -209,6 +215,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                   onChange={handleFileChange}
                   fullWidth
                   inputProps={{ multiple: true }}
+                  InputLabelProps={{ shrink: true }}
                   margin="normal"
                   sx={{ width: "100%" }}
                 />

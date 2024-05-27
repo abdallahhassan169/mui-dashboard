@@ -242,7 +242,7 @@ const ProductForm = ({ open, onClose, initialValue }) => {
                     <Typography variant="h6">{T("PriceDetails")}</Typography>
                     <TextField
                       id="egp_price"
-                      label="Normal Price"
+                      label="EGP Price"
                       type="number"
                       //variant="filled"
                       value={formData.egp_price}
@@ -255,10 +255,11 @@ const ProductForm = ({ open, onClose, initialValue }) => {
                     />
                     <TextField
                       id="use_price"
-                      label="Entry Price"
+                      label="usd Price"
                       type="number"
+                      InputLabelProps={{ shrink: true }}
                       // variant="filled"
-                      value={formData.use_price}
+                      value={formData.usd_price}
                       onChange={(e) =>
                         handleChange("use_price", e.target.value)
                       }
