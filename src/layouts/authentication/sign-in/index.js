@@ -49,7 +49,7 @@ function Basic({ setUser }) {
         data.data.expirationDate
       );
     } else {
-      noti.error(`${data.response.data}`);
+      noti.error(`خطأ في التسجيل`);
     }
   };
   return (
