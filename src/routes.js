@@ -8,8 +8,10 @@ import ViewProduct from "../src/layouts/MainData/Products/ProductDetails";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Orders from "../src/layouts/MainData/Orders/Orders";
 import ViewOrder from "../src/layouts/MainData/Orders/OrdersDetails";
+import AppSlider from "../src/layouts/MainData/AppSlider/AppSlider";
 import {
   Category,
+  Image,
   Person,
   ProductionQuantityLimits,
 } from "@mui/icons-material";
@@ -27,11 +29,6 @@ const routes = [
     type: "divider",
     key: "divider",
   },
-  {
-    type: "title",
-    key: "title",
-    title: "Campagines",
-  },
 
   {
     type: "collapse",
@@ -42,6 +39,7 @@ const routes = [
     component: <Campagines />,
     showInNav: true,
   },
+
   {
     type: "collapse",
     name: "CampaginesView",
@@ -145,6 +143,15 @@ const routes = [
     route: "/users",
     showInNav: true,
     component: <Users />,
+  },
+  {
+    type: "collapse",
+    name: "عارض الصور",
+    key: "slider",
+    icon: <Image fontSize="small"> </Image>,
+    route: "/slider",
+    component: <AppSlider />,
+    showInNav: true,
   },
 ];
 

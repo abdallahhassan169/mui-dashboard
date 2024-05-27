@@ -3,29 +3,7 @@ import axios from "axios";
 import { CleaningServices } from "@mui/icons-material";
 
 const backend = config.backend;
-export const ApiChannel = async (serviceUrl, params, useLoader = true) => {
-  const token = getCookie("token");
-  try {
-    //console.log("token",`Bearer ${token}`)
-    const Backend = backend.url;
-    const res = await axios.post(
-      Backend + serviceUrl,
-      { ...params },
-      { headers: { Authorization: `${token}` } }
-    );
 
-    //console.log("res",res);
-    const Data =
-      res.data != null
-        ? { success: true, data: res.data }
-        : { success: false, data: res.data };
-
-    //console.log("errorData",Data);
-    return Data;
-  } catch (error) {
-    //console.log("error");
-  }
-};
 function getCookie(name) {
   // Split the cookie string into individual cookies
   const cookies = document.cookie.split("; ");
@@ -55,11 +33,50 @@ export const Login = async (serviceUrl, params, useLoader = true) => {
     return { success: false, ...error };
   }
 };
-export const default_post = async (serviceUrl, params, useLoader = true) => {
-  const result = await ApiChannel(serviceUrl, params);
-  //console.log("default_postss",result)
-  if (!Boolean(result))
+export const ApiChannel = async (
+  serviceUrl,
+  params,
+  isForm = false,
+  useLoader = true
+) => {
+  const token = getCookie("token");
+  try {
+    const Backend = backend.url;
+    let headers = {
+      Authorization: token,
+    };
+
+    if (isForm) {
+      headers["Content-Type"] = "multipart/form-data";
+    } else {
+      headers["Content-Type"] = "application/json";
+      params = JSON.stringify(params);
+    }
+
+    const res = await axios.post(Backend + serviceUrl, params, { headers });
+
+    const Data =
+      res.data != null
+        ? { success: true, data: res.data }
+        : { success: false, data: res.data };
+
+    return Data;
+  } catch (error) {
+    console.error("error", error);
+    return { success: false, data: null, error };
+  }
+};
+
+export const default_post = async (
+  serviceUrl,
+  params,
+  isForm = false,
+  useLoader = true
+) => {
+  const result = await ApiChannel(serviceUrl, params, isForm, useLoader);
+  if (!Boolean(result)) {
     return { data: null, meta: null, error: "Server Error(1)", success: false };
+  }
   const { data } = result;
   return { data, error: null, success: true };
 };

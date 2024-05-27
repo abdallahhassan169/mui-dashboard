@@ -32,26 +32,24 @@ export default function DashAutoComplete(props) {
   console.log(init?.name);
   return (
     <>
-      {init && (
-        <Autocomplete
-          ref={my}
-          getOptionLabel={(option) => option.name}
-          disablePortal
-          id="combo-box-demo"
-          options={data}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={props.label}
-              defaultValue={init?.name}
-            />
-          )}
-          // value={init}
+      <Autocomplete
+        ref={my}
+        getOptionLabel={(option) => option.name}
+        disablePortal
+        id="combo-box-demo"
+        options={data}
+        sx={{ width: 300 }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={props.label}
+            defaultValue={init?.name}
+          />
+        )}
+        // value={init}
 
-          {...props}
-        />
-      )}
+        {...props}
+      />
     </>
   );
 }

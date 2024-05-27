@@ -81,7 +81,7 @@ const ProductForm = ({ open, onClose, initialValue }) => {
     const file = event.target.files[0];
     setFormData((prevData) => ({
       ...prevData,
-      imagesProduct: file,
+      image: file,
     }));
   };
 

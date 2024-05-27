@@ -42,7 +42,24 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
     setFormData(initialFormData);
   }, [open]);
   const handleSave = async () => {
-    const data = await utils.default_post("upsert_campaign", formData);
+    const formDataToSubmit = new FormData();
+
+    // Convert formData fields to FormData
+    Object.keys(formData).forEach((key) => {
+      if (key === "images") {
+        Array.from(formData[key]).forEach((file) => {
+          formDataToSubmit.append("images", file);
+        });
+      } else {
+        formDataToSubmit.append(key, formData[key]);
+      }
+    });
+
+    const data = await utils.default_post(
+      "upsert_campaign",
+      formDataToSubmit,
+      true
+    );
     if (data.success) {
       noti.success(catAdded);
       onClose();
@@ -59,10 +76,10 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
   };
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files;
     setFormData((prevData) => ({
       ...prevData,
-      imageCategorie: file,
+      images: file,
     }));
   };
 
@@ -191,6 +208,7 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                   accept="image/*"
                   onChange={handleFileChange}
                   fullWidth
+                  inputProps={{ multiple: true }}
                   margin="normal"
                   sx={{ width: "100%" }}
                 />
