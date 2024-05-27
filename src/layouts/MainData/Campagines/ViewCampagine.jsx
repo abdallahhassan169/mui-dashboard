@@ -12,11 +12,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DetailsText from "./DetailsText";
 import Card from "@mui/material/Card";
+import { Button, Input, TextField } from "@mui/material";
+
 function ViewCampagine() {
   const { id } = useParams();
   console.log(id);
   const [data, setData] = useState({});
-
+  const [winner, setWinner] = useState();
   const getData = async () => {
     const data = await utils.default_post("campaign_products", { ids: [id] });
     if (data.success) {
@@ -75,6 +77,28 @@ function ViewCampagine() {
                         title="ملاحظة"
                         value={data?.campaign?.note}
                       />
+                      {
+                        <>
+                          <TextField
+                            type="number"
+                            label="رقم الفائز"
+                            onChange={(e) => setWinner(e.value)}
+                            style={{
+                              borderRadius: "solid 1px black",
+                              margin: "5px",
+                              width: "80%",
+                            }}
+                          />
+                          <Button
+                            style={{ margin: "5px", color: "white" }}
+                            variant="contained"
+                            onClick={() => console.log("first")}
+                          >
+                            {" "}
+                            حفظ
+                          </Button>
+                        </>
+                      }
                     </div>
                   </MDBox>
                 </Card>

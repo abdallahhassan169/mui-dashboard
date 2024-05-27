@@ -110,6 +110,10 @@ function Campagines() {
       cellClassName: "font-weight-bold",
     },
     {
+      field: "winner",
+      headerName: `${T("رقم الفائز")}`,
+    },
+    {
       field: "start_date",
       headerName: `${T("Start Date")}`,
       valueGetter: (params) => params.row?.start_date?.substring(0, 10),
