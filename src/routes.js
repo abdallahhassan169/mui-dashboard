@@ -148,7 +148,7 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "عارض الصور",
+    name: "Slider",
     key: "slider",
     icon: <Image fontSize="small"> </Image>,
     route: "/slider",

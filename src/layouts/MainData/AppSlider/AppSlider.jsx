@@ -124,7 +124,7 @@ export default function AppSlider() {
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <DASHGridServiceContainer
-                title="عارض الصور"
+                title={T("slider")}
                 serviceUrl={"/api/categories/getCats"}
                 serviceFilter={filter}
                 action={

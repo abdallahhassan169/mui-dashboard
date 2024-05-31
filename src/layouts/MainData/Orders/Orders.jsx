@@ -159,7 +159,7 @@ function Orders() {
             <Grid item xs={12}>
               <DASHGridServiceContainer
                 ref={gridRef}
-                title="products"
+                title="Orders"
                 colmuns={productColumns}
                 actionColumns={actionColumn}
                 action={
