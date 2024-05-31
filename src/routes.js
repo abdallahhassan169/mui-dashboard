@@ -9,7 +9,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Orders from "../src/layouts/MainData/Orders/Orders";
 import ViewOrder from "../src/layouts/MainData/Orders/OrdersDetails";
 import AppSlider from "../src/layouts/MainData/AppSlider/AppSlider";
+import Tickets from "../src/layouts/MainData/Campagines/Tickets";
 import {
+  AirplaneTicket,
   Category,
   Image,
   Person,
@@ -152,6 +154,14 @@ const routes = [
     route: "/slider",
     component: <AppSlider />,
     showInNav: true,
+  },
+  {
+    type: "collapse",
+    name: "Tickets ",
+    key: "slider",
+    icon: <AirplaneTicket fontSize="small"> </AirplaneTicket>,
+    route: "/tickets",
+    component: <Tickets />,
   },
 ];
 

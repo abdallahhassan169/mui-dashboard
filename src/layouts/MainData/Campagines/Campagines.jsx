@@ -3,7 +3,7 @@ import DashboardLayout from "MainWidgets/LayoutContainers/DashboardLayout";
 import MDBox from "components/MDBox";
 import { useMaterialUIController } from "context";
 import T from "context/languageProvider";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 import { AddTask, RemoveRedEye } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -135,6 +135,30 @@ function Campagines() {
     {
       field: "target",
       headerName: `${T("Target")}`,
+    },
+    {
+      field: "ticket",
+      headerName: `${T("Tickets")}`,
+      width: 200,
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <>
+          <MDBox
+            mr={1}
+            key={"edite"}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Button
+              onClick={() => {
+                nav("/tickets", { state: { cam_id: params.row.id } });
+              }}
+            >
+              Tickets
+            </Button>
+          </MDBox>
+        </>
+      ),
     },
   ];
   {

@@ -1,5 +1,5 @@
 import "../../themes/datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 //import { userColumns, userRows, products } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect, forwardRef } from "react";
@@ -10,7 +10,8 @@ import React from "react";
 const Datatable = forwardRef(
   (
     { serviceUrl, serviceFilter, columns, actionColumns, pageSize, checkBox },
-    ref
+    ref,
+    props
   ) => {
     const [data, setData] = useState([]);
 
@@ -48,6 +49,8 @@ const Datatable = forwardRef(
           }}
           pagination={true}
           autoHeight={true}
+          slots={{ toolbar: GridToolbar }}
+          {...props}
         />
       </div>
     );
