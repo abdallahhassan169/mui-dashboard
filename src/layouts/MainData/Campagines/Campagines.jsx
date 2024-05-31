@@ -111,7 +111,10 @@ function Campagines() {
     },
     {
       field: "winner",
-      headerName: `${T("رقم الفائز")}`,
+      headerName: `${T("حالة الفوز ")}`,
+      width: 200,
+      valueGetter: (params) =>
+        params.row?.winner !== null ? "تم تحديد الفائز" : "لم يتم تحديد الفائز",
     },
     {
       field: "start_date",
@@ -154,23 +157,27 @@ function Campagines() {
               onClick={() => startEdite(params.row)}
             ></EditIcon>
           </MDBox>
-          <MDBox mr={1} key={"delete"}>
-            {params.row.is_deactivated ? (
-              <AddTask
-                fontSize="medium"
-                onClick={() => startDelete(params.row)}
-                mx={10}
-                color="success"
-              ></AddTask>
-            ) : (
-              <DeleteForeverIcon
-                fontSize="medium"
-                onClick={() => startDelete(params.row)}
-                mx={10}
-                color="error"
-              ></DeleteForeverIcon>
-            )}
-          </MDBox>
+          {params.row.remaining_qty == params.row.target ? (
+            <MDBox mr={1} key={"delete"}>
+              {params.row.is_deactivated ? (
+                <AddTask
+                  fontSize="medium"
+                  onClick={() => startDelete(params.row)}
+                  mx={10}
+                  color="success"
+                ></AddTask>
+              ) : (
+                <DeleteForeverIcon
+                  fontSize="medium"
+                  onClick={() => startDelete(params.row)}
+                  mx={10}
+                  color="error"
+                ></DeleteForeverIcon>
+              )}
+            </MDBox>
+          ) : (
+            ""
+          )}
           <MDBox
             mr={1}
             key={"view"}

@@ -8,6 +8,7 @@ import MDBox from "components/MDBox";
 import { useMaterialUIController } from "context";
 import T from "context/languageProvider";
 import { Grid } from "@mui/material";
+import useNotification from "hooks/NotificationHook";
 
 import * as utils from "services/utils";
 import MDButton from "components/MDButton";
@@ -17,21 +18,20 @@ import DASHActionRow from "components/DASHActionRow";
 
 import Datatable from "../../../components/common/DataTable";
 import AppSliderForm from "./SliderForm";
+import { DeleteForever } from "@mui/icons-material";
+import { config } from "../../../config/constants";
 
 export default function AppSlider() {
   const [data, setData] = React.useState([]);
   const [isAddFormOpen, setAddFormOpen] = useState(false);
-
+  const [type, setType] = useState();
   const [currentItem, setCurrentItem] = useState();
   const [gridRef] = useState(React.createRef);
   const initialSearch = { Subject_Name: null, Grad_ID: null };
   const [filter, setFilter] = useState(initialSearch);
+  const noti = useNotification();
+
   const [method, setMethod] = useState("crud");
-  const startEdite = (e) => {
-    setCurrentItem(e);
-    setMethod("crud");
-    setAddFormOpen(true);
-  };
 
   const changeFilter = (formState) => {
     setFilter((p) => ({ ...p, ...formState }));
@@ -43,34 +43,80 @@ export default function AppSlider() {
     setAddFormOpen(true);
   };
 
-  const handleAddClick = () => {
+  const handleAddClick = (type) => {
+    console.log(type);
     setCurrentItem({});
+    setType(type);
     setMethod("crud");
     setAddFormOpen(true);
   };
   const handleCloseForm = () => {
     setAddFormOpen(false);
-    getData();
+    gridRef.current.refresh();
   };
-  const getStatusCellStyle = (params) => {
-    const backgroundColor = params.value
-      ? "rgb(109, 217, 45)"
-      : "rgb(252, 72, 52)";
-    return {
-      backgroundColor,
-      color: "white",
-      padding: "8px",
-    };
-  };
-  const getData = () => {
-    default_post("banners").then((res) =>
-      setData(res.data.rows[0].full_data.slides)
+  const startDelete = (row) => {
+    noti.DASHAlert(
+      async () => {
+        const data = await utils.default_post("delete_asset", {
+          id: row.id,
+        });
+        if (data.success) {
+          gridRef.current.refresh();
+          noti.success("حذف الورة");
+        } else {
+          noti.error("خطأ في حذف الصورة ");
+        }
+      },
+      null,
+      null,
+      {
+        icon: "warning",
+        title: `${"هل انت متاكد من حذف الصورة "} (${row?.id})`,
+        //html: cantReturn,
+      }
     );
   };
-  React.useEffect(() => {
-    getData();
-    //setData(res.data?.data?.rows?.full_data?.slides)
-  }, []);
+  const columns = [
+    { field: "id", headerName: `${T("ID")}`, width: 250 },
+    {
+      field: "type",
+      headerName: `${T("النوع")}`,
+      width: 250,
+    },
+    {
+      field: "imagecell",
+      headerName: `${T("Image")}`,
+      width: 250,
+      renderCell: (params) => (
+        <img
+          src={`${config.backend.url}image?img=${params.row?.banner}`}
+          style={{ width: 50, height: 50 }}
+        />
+      ),
+    },
+  ];
+
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: `${T("action")}`,
+      width: 200,
+      filterable: false,
+      sortable: false,
+      renderCell: (params) => (
+        <>
+          <MDBox mr={1} key={"delete"}>
+            <DeleteForever
+              fontSize="medium"
+              onClick={() => startDelete(params.row)}
+              mx={10}
+              color="error"
+            ></DeleteForever>
+          </MDBox>
+        </>
+      ),
+    },
+  ];
   return (
     <>
       <DashboardLayout>
@@ -78,7 +124,7 @@ export default function AppSlider() {
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <DASHGridServiceContainer
-                title="المسابقات"
+                title="عارض الصور"
                 serviceUrl={"/api/categories/getCats"}
                 serviceFilter={filter}
                 action={
@@ -87,13 +133,31 @@ export default function AppSlider() {
                     openSearch={openSearch}
                     filter={filter}
                   >
-                    <MDButton onClick={handleAddClick} color={"dark"}>
-                      {T("Add New Images")}
+                    <MDButton
+                      style={{ marginLeft: "10px" }}
+                      onClick={() => handleAddClick("slides")}
+                      color={"success"}
+                    >
+                      {T("Add New Slides")}
+                    </MDButton>
+                    <MDButton
+                      onClick={() => handleAddClick("banners")}
+                      color={"dark"}
+                    >
+                      {T("Add New Banners")}
                     </MDButton>
                   </DASHActionRow>
                 }
               >
-                <ImagesCarousel items={data} imageKey={"url"} />
+                <Datatable
+                  ref={gridRef}
+                  serviceUrl={"dash_banners"}
+                  serviceFilter={{}}
+                  columns={columns}
+                  actionColumns={actionColumn}
+                  pageSize={10}
+                  checkBox={true}
+                />
               </DASHGridServiceContainer>
             </Grid>
           </Grid>
@@ -103,6 +167,7 @@ export default function AppSlider() {
         open={isAddFormOpen}
         initialValue={currentItem}
         onClose={handleCloseForm}
+        type={type}
         method={method}
       />
     </>

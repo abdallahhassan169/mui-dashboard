@@ -17,13 +17,15 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+
 import T from "context/languageProvider";
 import useNotification from "hooks/NotificationHook";
 
 import * as utils from "services/utils";
 import DashAutoComplete from "../../../components/common/AutoComplete";
-const AppSliderForm = ({ open, onClose, initialValue, method }) => {
+const AppSliderForm = ({ open, onClose, initialValue, method, type }) => {
   //console.log("method" ,{method}," initialValue",initialValue)
+  console.log(type, "herrree");
   const noti = useNotification();
   const catAdded = T("catAdded");
   const catAddedError = T("catAddedError");
@@ -45,17 +47,19 @@ const AppSliderForm = ({ open, onClose, initialValue, method }) => {
     const formDataToSubmit = new FormData();
 
     // Convert formData fields to FormData
-    Object.keys(formData).forEach((key) => {
+    Object.keys({ ...formData }).forEach((key) => {
       if (key === "images") {
         Array.from(formData[key]).forEach((file) => {
           formDataToSubmit.append("images", file);
         });
+        formDataToSubmit.append("type", type);
       } else {
         formDataToSubmit.append(key, formData[key]);
       }
     });
 
     const data = await utils.default_post("add_assets", formDataToSubmit, true);
+    console.log(formDataToSubmit);
     if (data.success) {
       noti.success(catAdded);
       onClose();
@@ -86,16 +90,7 @@ const AppSliderForm = ({ open, onClose, initialValue, method }) => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Grid item xs={12} md={6}>
-                <label>البانر الرئيسي</label>
-                <TextField
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  fullWidth
-                  margin="normal"
-                  sx={{ width: "100%" }}
-                />
-                <label>صور العارض </label>
+                <label>الصور </label>
 
                 <TextField
                   type="file"
