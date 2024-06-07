@@ -7,8 +7,8 @@ function T(key) {
     en: {
       slider: "Slider",
       action: "Action",
-      CampaginesView: "Campagines View",
-      Campagines: "Campagines",
+      CampaginesView: "Campaigns View",
+      Campagines: "Campaigns",
 
       language: "Language",
       SidenavColors: "Sidenav Colors",

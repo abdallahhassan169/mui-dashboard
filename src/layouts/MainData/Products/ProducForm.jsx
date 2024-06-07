@@ -120,6 +120,19 @@ const ProductForm = ({ open, onClose, initialValue }) => {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <TextField
+                    id="name_en"
+                    label="Name en"
+                    type="text"
+                    //variant="filled"
+                    value={formData.name_en}
+                    onChange={(e) => handleChange("name_en", e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <TextField
                     id="category"
                     label="Category"
                     type="text"

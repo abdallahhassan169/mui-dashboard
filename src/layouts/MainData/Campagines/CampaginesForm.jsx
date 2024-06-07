@@ -110,6 +110,17 @@ const CampaginesForm = ({ open, onClose, initialValue, method }) => {
                 margin="normal"
               />
             </Grid>
+            <Grid item xs={12} md={12}>
+              <TextField
+                id="name_en"
+                label={T("Name_en")}
+                value={formData.name_en}
+                onChange={(e) => handleChange("name_en", e.target.value)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                margin="normal"
+              />
+            </Grid>
             <Grid item xs={12} md={6}>
               <TextField
                 id="start_date"
