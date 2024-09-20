@@ -1,4 +1,3 @@
- 
 import { createContext, useContext, useReducer, useMemo } from "react";
 
 // prop-types is a library for typechecking of props
@@ -46,7 +45,7 @@ function reducer(state, action) {
     case "TOKEN": {
       return { ...state, token: action.value };
     }
-    case "USER": { 
+    case "USER": {
       return { ...state, user: action.value };
     }
     default: {
@@ -65,17 +64,19 @@ function MaterialUIControllerProvider({ children }) {
     transparentNavbar: true,
     fixedNavbar: true,
     openConfigurator: false,
-    direction: "rtl",
+    direction: "ltr",
     layout: "dashboard",
-    darkMode: false,token:"",user:{}
-  }; 
+    darkMode: false,
+    token: "",
+    user: {},
+  };
   const [controller, dispatch] = useReducer(reducer, initialState);
 
   const value = useMemo(() => [controller, dispatch], [controller, dispatch]);
 
   return <MaterialUI.Provider value={value}>{children}</MaterialUI.Provider>;
 }
- 
+
 function useMaterialUIController() {
   const context = useContext(MaterialUI);
 
@@ -94,14 +95,22 @@ MaterialUIControllerProvider.propTypes = {
 };
 
 // Context module functions
-const setMiniSidenav = (dispatch, value) => dispatch({ type: "MINI_SIDENAV", value });
-const setTransparentSidenav = (dispatch, value) => dispatch({ type: "TRANSPARENT_SIDENAV", value });
-const setWhiteSidenav = (dispatch, value) => dispatch({ type: "WHITE_SIDENAV", value });
-const setSidenavColor = (dispatch, value) => dispatch({ type: "SIDENAV_COLOR", value });
-const setTransparentNavbar = (dispatch, value) => dispatch({ type: "TRANSPARENT_NAVBAR", value });
-const setFixedNavbar = (dispatch, value) => dispatch({ type: "FIXED_NAVBAR", value });
-const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGURATOR", value });
-const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
+const setMiniSidenav = (dispatch, value) =>
+  dispatch({ type: "MINI_SIDENAV", value });
+const setTransparentSidenav = (dispatch, value) =>
+  dispatch({ type: "TRANSPARENT_SIDENAV", value });
+const setWhiteSidenav = (dispatch, value) =>
+  dispatch({ type: "WHITE_SIDENAV", value });
+const setSidenavColor = (dispatch, value) =>
+  dispatch({ type: "SIDENAV_COLOR", value });
+const setTransparentNavbar = (dispatch, value) =>
+  dispatch({ type: "TRANSPARENT_NAVBAR", value });
+const setFixedNavbar = (dispatch, value) =>
+  dispatch({ type: "FIXED_NAVBAR", value });
+const setOpenConfigurator = (dispatch, value) =>
+  dispatch({ type: "OPEN_CONFIGURATOR", value });
+const setDirection = (dispatch, value) =>
+  dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setToken = (dispatch, value) => dispatch({ type: "TOKEN", value });
@@ -119,6 +128,7 @@ export {
   setOpenConfigurator,
   setDirection,
   setLayout,
-  setDarkMode,setToken,setLocalUser
+  setDarkMode,
+  setToken,
+  setLocalUser,
 };
-  
